@@ -1,0 +1,2 @@
+/mnt/h/code/collective_effects_cpp/build/CMakeFiles/edit_cache.dir
+/mnt/h/code/collective_effects_cpp/build/CMakeFiles/rebuild_cache.dir

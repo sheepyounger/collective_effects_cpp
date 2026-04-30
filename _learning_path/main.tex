@@ -1,0 +1,147 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{amsmath,amssymb}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{url}
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+\setlist{nosep, leftmargin=*}
+
+\title{\textbf{C++ 学习路线表}\\面向科学计算与高性能集体效应分析程序开发}
+\author{加速器物理代码开发者}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{前言}
+本文档旨在为从Python迁移至C++开发高性能集体效应分析程序（如束流集体效应、束束效应模拟）的系统学习路线。目标：掌握现代C++（C++11/14/17），能够使用Eigen、Spectra、OpenMP、MPI、pybind11等库构建可扩展的科学计算后端。
+
+\section{学习路线表}
+下表按推荐学习顺序排列，标注了掌握程度（了解/熟练/精通）及与本项目关联。
+
+{\small
+\begin{longtable}{p{3.5cm}p{2.5cm}p{1.8cm}p{7cm}}
+\toprule
+阶段 & 知识点 & 掌握程度 & 关联本项目 \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+1 基础语法 & 变量、基本类型（int, double, complex）、运算符、\texttt{auto} & 熟练 & 定义物理参数、存储矩阵元 \\
+& 条件语句（if/else, switch） & 熟练 & 控制逻辑（后端选择、模型） \\
+& 循环（for, while, range-based for） & 熟练 & 矩阵元计算、模式遍历 \\
+& 函数：定义、参数传递（值/引用/指针）、重载、默认参数 & 熟练 & 分解物理公式 \\
+& 数组和 \texttt{std::vector} & 熟练 & 存储一维数据（径向网格） \\
+& 输入输出（\texttt{std::cout}，文件流） & 了解 & 读取阻抗/尾场文件 \\
+\midrule
+2 面向对象 & 类与对象：构造/析构、成员变量/函数 & 熟练 & 设计物理模块（ArcMap,DipoleMap等） \\
+& 访问修饰符（public, private, protected） & 熟练 & 封装内部实现 \\
+& 继承与多态（虚函数、override） & 熟练 & 统一接口（TransferMap基类） \\
+& 运算符重载 & 了解 & 矩阵运算简化（+,*） \\
+& 静态成员与常量 & 了解 & 定义物理常量（pi等） \\
+\midrule
+3 内存管理 & 栈与堆、\texttt{new}/\texttt{delete}（了解） & 了解 & 理解底层 \\
+& 智能指针（\texttt{unique\_ptr}，\texttt{shared\_ptr}） & 熟练 & 管理大矩阵、避免泄漏 \\
+& RAII原则 & 熟练 & 保证资源安全 \\
+\midrule
+4 模板泛型 & 函数模板、类模板 & 熟练 & 通用数值算法（积分、插值） \\
+& 模板特化 & 了解 & 特定类型优化 \\
+& \texttt{constexpr} 编译期计算 & 了解 & 预计算常量（阶乘） \\
+\midrule
+5 标准库（STL） & 容器：vector, array, map & 熟练 & 存储参数、网格、特征值列表 \\
+& 算法：sort, find, transform & 熟练 & 模式排序、参数查找 \\
+& 迭代器与范围循环 & 熟练 & 遍历容器 \\
+& 字符串处理：string, stringstream & 了解 & 解析文件路径、错误信息 \\
+& lambda表达式 & 熟练 & 自定义积分核、插值函数 \\
+& 随机数（<random>） & 了解 & 测试生成随机矩阵 \\
+& chrono（<chrono>） & 了解 & 性能测量 \\
+\midrule
+6 现代C++ & 右值引用与移动语义 & 熟练 & 避免大矩阵拷贝 \\
+& \texttt{std::move}，移动构造/赋值 & 熟练 & 高效返回矩阵 \\
+& 类型推导（auto, decltype） & 熟练 & 简化模板代码 \\
+& 委托构造函数、类内成员初始化 & 了解 & 简化类定义 \\
+& 结构化绑定（C++17） & 了解 & 解包多返回值 \\
+& \texttt{std::optional}，\texttt{std::variant} & 了解 & 处理可选参数 \\
+\midrule
+7 错误调试 & 异常（try/catch/throw） & 熟练 & 处理参数错误、文件失败 \\
+& 断言（assert） & 熟练 & 调试阶段不变量 \\
+& 调试技巧（GDB/LLDB，日志） & 熟练 & 定位段错误 \\
+\midrule
+8 科学计算库 & Eigen（线性代数） & 精通 & 所有稠密/稀疏矩阵操作、特征求解 \\
+& Spectra（迭代特征求解器） & 熟练 & 大规模部分特征值 \\
+& Boost.Math（特殊函数） & 了解 & 拉盖尔多项式，贝塞尔函数 \\
+\midrule
+9 并行编程 & OpenMP（共享内存） & 熟练 & 并行矩阵元填充 \\
+& MPI（分布式） & 熟练 & 多节点集群（束束效应大矩阵） \\
+& 竞争条件、原子操作 & 熟练 & 正确并行化 \\
+& \texttt{std::thread}/\texttt{std::async} & 了解 & 轻量级任务并行 \\
+\midrule
+10 高性能数值 & 内存布局（行/列主序） & 熟练 & 与Eigen/numpy兼容 \\
+& 缓存友好循环 & 熟练 & 优化矩阵元计算 \\
+& 避免虚函数开销（CRTP） & 了解 & 极致性能 \\
+& SIMD概念（自动向量化） & 了解 & 编译器优化 \\
+\midrule
+11 构建与集成 & CMake（构建系统） & 熟练 & 管理项目、编译依赖 \\
+& pybind11 & 精通 & 将C++类暴露给Python \\
+& HDF5库（可选） & 熟练 & 直接写入HDF5与Python共享 \\
+\midrule
+12 进阶主题 & 表达式模板（Eigen内部） & 了解 & 理解高性能库原理 \\
+& 自定义分配器 & 了解 & 内存对齐、大页 \\
+& 编译期反射（C++17/20） & 了解 & 替代模板元编程 \\
+\bottomrule
+\end{longtable}
+}
+
+\section{学习顺序建议}
+按模块1→2→3→4→5→6→7→8→9→11→10→12推进：
+\begin{enumerate}
+    \item \textbf{基础语法+面向对象+智能指针}：奠定编程思维。
+    \item \textbf{模板+STL}：熟练使用容器与算法。
+    \item \textbf{Eigen + Spectra}：核心科学计算能力。
+    \item \textbf{并行编程}：先OpenMP，再MPI。
+    \item \textbf{工具链}：CMake + pybind11。
+\end{enumerate}
+
+\section{时间预估（每天约2-3小时）}
+\begin{itemize}
+    \item 阶段1–3（基础+面向对象+智能指针）：2~3个月
+    \item 阶段4–5（模板+STL）：1个月
+    \item 阶段8（Eigen+Spectra）：2~4周
+    \item 阶段9（并行）：1~2个月
+    \item 阶段11（CMake+pybind11）：2周
+\end{itemize}
+总计约6~9个月达到独立开发核心模块水平（非精通但够用）。
+
+\section{推荐学习资源}
+\begin{itemize}
+    \item \textbf{入门书籍}：\emph{C++ Primer}（第5版，Lippman）——涵盖现代C++。
+    \item \textbf{进阶书籍}：\emph{Effective Modern C++}（Meyers）——提升编程习惯。
+    \item \textbf{线性代数库}：Eigen官方文档 \url{http://eigen.tuxfamily.org}
+    \item \textbf{特征求解器}：Spectra文档 \url{https://spectralib.org}
+    \item \textbf{并行编程}：\emph{Using OpenMP}（Chapman）；LLNL在线MPI教程。
+    \item \textbf{绑定工具}：pybind11文档 \url{https://pybind11.readthedocs.io}
+    \item \textbf{在线练习}：LeetCode（C++热身），Codeforces。
+\end{itemize}
+
+\section{针对本项目（集体效应分析程序）的建议路径}
+边学边重构，避免“先学完再写代码”：
+\begin{enumerate}
+    \item 用C++重写最简单的求解器（例如TransverseLocalSteplike）的矩阵构造部分（串行，使用std::vector），通过pybind11调用，与Python版本对比。
+    \item 引入Eigen，替换手动循环。
+    \item 加入OpenMP并行化矩阵元填充。
+    \item 加入MPI并行化（多节点）。
+    \item 集成迭代特征求解器（Spectra或SLEPc）。
+\end{enumerate}
+每次迭代保持可运行，确保与Python API一致。
+
+\section{结语}
+本路线强调\textbf{实用性与项目驱动}，重点掌握Eigen、pybind11、OpenMP/MPI。完成学习后，你将具备开发专业级高性能集体效应分析程序的能力。
+
+\end{document}

@@ -1,0 +1,44 @@
+####################################
+##### 方式一：使用 pip（推荐用户使用）
+
+# 从源码安装
+pip install .
+
+# 开发模式安装（代码修改后不需要重新安装）
+pip install -e .
+
+# 如果使用 pyproject.toml
+pip install -e .  # 会自动调用 CMake
+
+
+#########################################
+##### 方式二：使用 CMake 单独编译（开发者）
+
+# 创建构建目录
+mkdir build && cd build
+
+# 配置（生成 Makefile）
+cmake .. -DCMAKE_BUILD_TYPE=Release
+
+# 编译
+cmake --build . --config Release
+
+# 可选：运行测试
+ctest
+
+# 可选：安装到系统目录
+cmake --install . --prefix /path/to/install
+
+#################################
+##### 方式三：混合方式（开发推荐）
+
+# 1. 先编译 C++ 核心
+mkdir build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake --build .
+
+# 2. 设置 PYTHONPATH 指向 Python 包
+export PYTHONPATH=/path/to/collective_effects_cpp/python:$PYTHONPATH
+
+# 3. 运行示例/测试
+python examples/example_wakeimpe.py

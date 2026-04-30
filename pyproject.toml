@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=42", "wheel", "cmake>=3.15", "pybind11>=2.6"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "collective-effects"
+version = "0.0.dev20260428"
+description = "High-performance collective effects analysis for particle accelerators"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "you@example.com"}
+]
+dependencies = [
+    "numpy>=1.19",
+    "scipy>=1.5",
+    "matplotlib>=3.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/collective-effects"
+Documentation = "https://collective-effects.readthedocs.io"
+
+[tool.setuptools.packages.find]
+where = ["python"]
+include = ["collective_effects*"]
+
+[tool.setuptools.package-data]
+"collective_effects" = ["**/*.so", "**/*.pyd", "**/*.dll"]

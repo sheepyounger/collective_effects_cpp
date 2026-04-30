@@ -1,0 +1,52 @@
+../collective_effects_cpp/
+├── CMakeLists.txt
+├── _learning_path
+│   ├── main.aux
+│   ├── main.log
+│   ├── main.pdf
+│   ├── main.synctex.gz
+│   ├── main.tex
+│   └── out
+├── build
+│   ├── CMakeCache.txt
+│   ├── CMakeFiles
+│   │   ├── 3.28.3
+│   │   │   ├── CMakeCCompiler.cmake
+│   │   │   ├── CMakeCXXCompiler.cmake
+│   │   │   ├── CMakeDetermineCompilerABI_C.bin
+│   │   │   ├── CMakeDetermineCompilerABI_CXX.bin
+│   │   │   ├── CMakeSystem.cmake
+│   │   │   ├── CompilerIdC
+│   │   │   │   ├── CMakeCCompilerId.c
+│   │   │   │   ├── a.out
+│   │   │   │   └── tmp
+│   │   │   └── CompilerIdCXX
+│   │   │       ├── CMakeCXXCompilerId.cpp
+│   │   │       ├── a.out
+│   │   │       └── tmp
+│   │   ├── CMakeConfigureLog.yaml
+│   │   ├── CMakeDirectoryInformation.cmake
+│   │   ├── Makefile.cmake
+│   │   ├── Makefile2
+│   │   ├── TargetDirectories.txt
+│   │   ├── cmake.check_cache
+│   │   ├── pkgRedirects
+│   │   └── progress.marks
+│   ├── Makefile
+│   └── cmake_install.cmake
+├── cmake
+├── dist
+├── docs
+├── examples
+├── include
+│   ├── phasespace
+│   └── wakeimpe
+│       └── wakebase.hpp
+├── src
+│   ├── phasespace
+│   └── wakeimpe
+│       └── wakebase.cpp
+├── test
+└── tree.txt
+
+22 directories, 28 files
