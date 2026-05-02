@@ -3,12 +3,9 @@
 #include<stdexcept>
 #include<cmath>
 #include<fftw3.h>
-// #include "../../include/utils/constants.hpp"
-// #include "../../include/utils/sequence.hpp"
-// #include "../../../include/wakeimpe/transverse/transvwake.hpp"
-// #include "../../../include/wakeimpe/transverse/transvimpe.hpp"
 #include "utils/constants.hpp"
 #include "utils/sequence.hpp"
+#include "utils/integral.hpp"
 #include "wakeimpe/transverse/transvwake.hpp"
 #include "wakeimpe/transverse/transvimpe.hpp"
 #include "wakeimpe/wakefield.hpp"
@@ -35,47 +32,45 @@ transvwake::TransverseWakefield::TransverseWakefield(
 tuple<vector<double>, vector<double>>
 transvwake::TransverseWakefield::impedance_to_wakefield(const transvimpe::TransverseImpedance& impedance)
 {
-    //  准备频率数组（等差数列）
-    vector<double> freq = arange(
-        *impedance.freq_min_,
-        *impedance.freq_max_,
-        *impedance.freq_step_
-    );
-    //  频率数组长度
-    size_t n = static_cast<size_t>(
-        llround((*impedance.freq_max_ - *impedance.freq_min_) / *impedance.freq_step_)
-    ) + 1;
-    //  准备FFT输入数组
-    fftw_complex* in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * n);
-    fftw_complex* out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * n);
+    // 获取阻抗数据的频率范围
+    double freq_max = *impedance.freq_max_;
+    double freq_min = *impedance.freq_min_;
+    double freq_step = *impedance.freq_step_;
+    cout << "freq_max: " << freq_max << endl;
+    cout << "freq_min: " << freq_min << endl;
+    cout << "freq_step: " << freq_step << endl;
 
-    //  创建 FFTW 计划（逆变换，复数→复数）
-    fftw_plan plan = fftw_plan_dft_1d(n, in, out, FFTW_BACKWARD, FFTW_ESTIMATE);
+    // 准备频率数组（等差数列）
+    vector<double> freq = arange(freq_min, freq_max, freq_step);
+    size_t nf = freq.size();
+    cout << "nf: " << nf << endl;
 
-    //  填充输入数据
-    for (size_t i = 0; i < n; ++i) {
-        in[i][0] = impedance.operator()(freq[i]).real();
-        in[i][1] = impedance.operator()(freq[i]).imag();
+    // 获取阻抗值
+    vector<complex<double>> impe(nf);
+    for (size_t i=0; i < nf; ++i) {
+        impe[i] = impedance(freq[i]);
+    }
+    cout << "max real value: " << vec_max(real(impe)) << endl;
+    cout << "max imag value: " << vec_max(imag(impe)) << endl;
+
+    //  设置尾场数据
+    float dz = 1e-5;    //  设置纵向坐标间距
+    float max_z = 0.5;  //  设置最大纵向坐标
+    size_t nz = static_cast<size_t>(2 * max_z / dz) + 1;    //  纵向坐标点个数
+
+    //  创建纵向坐标轴
+    vector<double> vec_z = linspace(-max_z, max_z, nz);
+    //  初始化尾场组数
+    vector<double> wake(nz);
+    for (size_t j=0; j < nz; ++j){
+        vector<complex<double>> integrand(nf);
+        for (size_t k=0; k<nf; ++k) {
+            double omega = 2 * pi * freq[k] / speed_of_light;
+            complex<double> kernel = - 1i * exp(1i * omega * vec_z[j]);
+            integrand[k] = kernel * impe[k];
+        }
+        wake[j] = real(simpson_3_8_dx_complex(integrand, freq_step));
     }
 
-    //  执行逆傅里叶变换
-    fftw_execute(plan);
-
-    const double& dfreq = *impedance.freq_step_;
-    double dz = 2 * pi * speed_of_light / (n * dfreq);  //  纵向位置步长
-    double z0 = - (n - 1) / 2.0 * dz;                       //  起始位置
-    double factor = 1.0 / 2.0 / pi * dfreq;
-
-    vector<double> z(n), wake(n);
-    for (size_t i=0; i<n; ++i){
-        z[i] = z0 + i * dz;
-        //  尾场数据应为实数，故丢弃虚部.注意系数实际上带虚部。
-        wake[i] = factor * out[i][1];
-    }
-
-    fftw_destroy_plan(plan);
-    fftw_free(in);
-    fftw_free(out);
-
-    return {z, wake};
+    return {vec_z, wake};
 }

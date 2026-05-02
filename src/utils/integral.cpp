@@ -96,7 +96,7 @@ complex<double> simpson_3_8_complex(const vector<double>& x,const vector<complex
     return sum;
 }
 
-// 复数版本的 Simpson 3/8 积分
+// 等距+复数版本的 Simpson 3/8 积分
 complex<double> simpson_3_8_dx_complex(const vector<complex<double>>& y, double dx) {
 
     if (y.size() < 4) {

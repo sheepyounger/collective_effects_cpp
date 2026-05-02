@@ -2,7 +2,6 @@
 #include<algorithm>
 #include<stdexcept>
 #include<cmath>
-#include<fftw3.h>
 #include "utils/constants.hpp"
 #include "utils/sequence.hpp"
 #include "utils/integral.hpp"

@@ -70,7 +70,7 @@ PYBIND11_MODULE(_wakeimpe_cpp, m) {
         .def(py::init<const std::string&, double, double>(),
              py::arg("filename"), py::arg("twiss_beta") = 1.0, py::arg("scale") = 1.0)
         .def(py::init<const transvimpe::DipoleImpedance&>(),
-             py::arg("wakefield"))
+             py::arg("impedance"))
         .def("__call__", py::overload_cast<double>(
                 &transvwake::DipoleWakefield::operator(), py::const_),
              py::arg("z_query"))
