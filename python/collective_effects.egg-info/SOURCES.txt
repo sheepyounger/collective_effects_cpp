@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+python/collective_effects/__init__.py
+python/collective_effects.egg-info/PKG-INFO
+python/collective_effects.egg-info/SOURCES.txt
+python/collective_effects.egg-info/dependency_links.txt
+python/collective_effects.egg-info/requires.txt
+python/collective_effects.egg-info/top_level.txt
+python/collective_effects/wakeimpe/__init__.py
+python/collective_effects/wakeimpe/_core.py
+python/collective_effects/wakeimpe/_version.py
+python/collective_effects/wakeimpe/_wakeimpe_cpp.cpython-314-x86_64-linux-gnu.so
+test/test_wakeimpe.py

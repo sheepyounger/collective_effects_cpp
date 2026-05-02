@@ -63,16 +63,101 @@ CMAKE_BINARY_DIR = /mnt/h/code/collective_effects_cpp/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all:
+all: src/all
+all: python/bindings/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: src/preinstall
+preinstall: python/bindings/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean:
+clean: src/clean
+clean: python/bindings/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory python/bindings
+
+# Recursive "all" directory target.
+python/bindings/all: python/bindings/CMakeFiles/_wakeimpe_cpp.dir/all
+.PHONY : python/bindings/all
+
+# Recursive "preinstall" directory target.
+python/bindings/preinstall:
+.PHONY : python/bindings/preinstall
+
+# Recursive "clean" directory target.
+python/bindings/clean: python/bindings/CMakeFiles/_wakeimpe_cpp.dir/clean
+.PHONY : python/bindings/clean
+
+#=============================================================================
+# Directory level rules for directory src
+
+# Recursive "all" directory target.
+src/all: src/CMakeFiles/collective_effects_wakeimpe.dir/all
+.PHONY : src/all
+
+# Recursive "preinstall" directory target.
+src/preinstall:
+.PHONY : src/preinstall
+
+# Recursive "clean" directory target.
+src/clean: src/CMakeFiles/collective_effects_wakeimpe.dir/clean
+.PHONY : src/clean
+
+#=============================================================================
+# Target rules for target src/CMakeFiles/collective_effects_wakeimpe.dir
+
+# All Build rule for target.
+src/CMakeFiles/collective_effects_wakeimpe.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/collective_effects_wakeimpe.dir/build.make src/CMakeFiles/collective_effects_wakeimpe.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/collective_effects_wakeimpe.dir/build.make src/CMakeFiles/collective_effects_wakeimpe.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/h/code/collective_effects_cpp/build/CMakeFiles --progress-num=3,4,5,6,7,8,9,10 "Built target collective_effects_wakeimpe"
+.PHONY : src/CMakeFiles/collective_effects_wakeimpe.dir/all
+
+# Build rule for subdir invocation for target.
+src/CMakeFiles/collective_effects_wakeimpe.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/h/code/collective_effects_cpp/build/CMakeFiles 8
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/collective_effects_wakeimpe.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/h/code/collective_effects_cpp/build/CMakeFiles 0
+.PHONY : src/CMakeFiles/collective_effects_wakeimpe.dir/rule
+
+# Convenience name for target.
+collective_effects_wakeimpe: src/CMakeFiles/collective_effects_wakeimpe.dir/rule
+.PHONY : collective_effects_wakeimpe
+
+# clean rule for target.
+src/CMakeFiles/collective_effects_wakeimpe.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/collective_effects_wakeimpe.dir/build.make src/CMakeFiles/collective_effects_wakeimpe.dir/clean
+.PHONY : src/CMakeFiles/collective_effects_wakeimpe.dir/clean
+
+#=============================================================================
+# Target rules for target python/bindings/CMakeFiles/_wakeimpe_cpp.dir
+
+# All Build rule for target.
+python/bindings/CMakeFiles/_wakeimpe_cpp.dir/all: src/CMakeFiles/collective_effects_wakeimpe.dir/all
+	$(MAKE) $(MAKESILENT) -f python/bindings/CMakeFiles/_wakeimpe_cpp.dir/build.make python/bindings/CMakeFiles/_wakeimpe_cpp.dir/depend
+	$(MAKE) $(MAKESILENT) -f python/bindings/CMakeFiles/_wakeimpe_cpp.dir/build.make python/bindings/CMakeFiles/_wakeimpe_cpp.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/h/code/collective_effects_cpp/build/CMakeFiles --progress-num=1,2 "Built target _wakeimpe_cpp"
+.PHONY : python/bindings/CMakeFiles/_wakeimpe_cpp.dir/all
+
+# Build rule for subdir invocation for target.
+python/bindings/CMakeFiles/_wakeimpe_cpp.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/h/code/collective_effects_cpp/build/CMakeFiles 10
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 python/bindings/CMakeFiles/_wakeimpe_cpp.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/h/code/collective_effects_cpp/build/CMakeFiles 0
+.PHONY : python/bindings/CMakeFiles/_wakeimpe_cpp.dir/rule
+
+# Convenience name for target.
+_wakeimpe_cpp: python/bindings/CMakeFiles/_wakeimpe_cpp.dir/rule
+.PHONY : _wakeimpe_cpp
+
+# clean rule for target.
+python/bindings/CMakeFiles/_wakeimpe_cpp.dir/clean:
+	$(MAKE) $(MAKESILENT) -f python/bindings/CMakeFiles/_wakeimpe_cpp.dir/build.make python/bindings/CMakeFiles/_wakeimpe_cpp.dir/clean
+.PHONY : python/bindings/CMakeFiles/_wakeimpe_cpp.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

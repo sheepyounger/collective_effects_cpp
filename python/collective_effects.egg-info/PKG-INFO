@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: collective-effects
+Version: 0.0.dev20260428
+Summary: High-performance collective effects analysis for particle accelerators
+Author-email: Your Name <you@example.com>
+License: MIT
+Project-URL: Homepage, https://github.com/yourusername/collective-effects
+Project-URL: Documentation, https://collective-effects.readthedocs.io
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.19
+Requires-Dist: scipy>=1.5
+Requires-Dist: matplotlib>=3.2

@@ -4,8 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/include/**",
-                "/home/panliwei/.pyenv/versions/3.14.0/lib/python3.14/site-packages/**"
+                "/home/panliwei/.pyenv/versions/3.14.0/lib/python3.14/site-packages/**",
+                "${workspaceFolder}/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

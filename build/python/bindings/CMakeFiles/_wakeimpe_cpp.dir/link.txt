@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG -flto=auto -shared  -o /mnt/h/code/collective_effects_cpp/python/collective_effects/wakeimpe/_wakeimpe_cpp.cpython-314-x86_64-linux-gnu.so CMakeFiles/_wakeimpe_cpp.dir/wakeimpe_bindings.cpp.o  ../../lib/libcollective_effects_wakeimpe.a /usr/lib/x86_64-linux-gnu/libfftw3.so 
